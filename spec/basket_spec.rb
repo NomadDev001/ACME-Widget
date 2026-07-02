@@ -32,4 +32,18 @@ RSpec.describe Basket do
 
     expect { basket.add("X01") }.to raise_error(ArgumentError, "Unknown product code: X01")
   end
+
+    it "calculates the subtotal of items" do
+      catalogue = {
+        "B01" => { name: "Blue Widget", price: 7.95 },
+        "G01" => { name: "Green Widget", price: 24.95 }
+      }
+  
+      basket = Basket.new(catalogue, double("DeliveryRules"), [])
+  
+      basket.add("B01")
+      basket.add("G01")
+  
+      expect(basket.subtotal).to eq(32.90)
+    end  
 end

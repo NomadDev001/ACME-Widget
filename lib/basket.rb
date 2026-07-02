@@ -13,4 +13,8 @@ class Basket
 
     @items << product_code
   end
+
+  def subtotal
+    @items.sum { |product_code| @catalogue[product_code][:price] }
+  end
 end

@@ -59,4 +59,21 @@ RSpec.describe Basket do
   
     expect(basket.total).to eq(12.90)
   end
+
+  it "applies the red widget offer" do
+    catalogue = {
+      "R01" => { name: "Red Widget", price: 32.95 }
+    }
+  
+    basket = Basket.new(
+      catalogue,
+      DeliveryRules.new,
+      [RedWidgetOffer.new]
+    )
+  
+    basket.add("R01")
+    basket.add("R01")
+  
+    expect(basket.total).to eq(54.37)
+  end
 end

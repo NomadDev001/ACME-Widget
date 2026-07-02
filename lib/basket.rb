@@ -1,4 +1,5 @@
 require_relative "delivery_rules"
+require_relative "red_widget_offer"
 
 class Basket
   def initialize(catalogue, delivery_rules, offers = [])
@@ -20,8 +21,12 @@ class Basket
     @items.sum { |product_code| @catalogue[product_code][:price] }
   end
 
+  def discount
+    @offers.sum { |offer| offer.discount(@items, @catalogue) }
+  end
+
   def total
-    amount = subtotal
+    amount = subtotal - discount
     (amount + @delivery_rules.charge_for(amount)).floor(2)
   end
 end

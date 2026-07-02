@@ -1,5 +1,5 @@
 class RedWidgetOffer
-  PRODUCT_CODE = "R01"
+  PRODUCT_CODE = "R01".freeze
 
   def discount(items, catalogue)
     red_count = items.count(PRODUCT_CODE)

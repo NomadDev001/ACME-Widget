@@ -1,3 +1,5 @@
+require_relative "delivery_rules"
+
 class Basket
   def initialize(catalogue, delivery_rules, offers = [])
     @catalogue = catalogue
@@ -16,5 +18,10 @@ class Basket
 
   def subtotal
     @items.sum { |product_code| @catalogue[product_code][:price] }
+  end
+
+  def total
+    amount = subtotal
+    (amount + @delivery_rules.charge_for(amount)).floor(2)
   end
 end

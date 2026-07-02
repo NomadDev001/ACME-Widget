@@ -90,4 +90,35 @@ RSpec.describe Basket do
   
     expect(basket.total).to eq(37.85)
   end
+
+  it "calculates R01, G01 as 60.85" do
+    catalogue = {
+      "R01" => { name: "Red Widget", price: 32.95 },
+      "G01" => { name: "Green Widget", price: 24.95 },
+      "B01" => { name: "Blue Widget", price: 7.95 }
+    }
+  
+    basket = Basket.new(catalogue, DeliveryRules.new, [RedWidgetOffer.new])
+    basket.add("R01")
+    basket.add("G01")
+  
+    expect(basket.total).to eq(60.85)
+  end
+  
+  it "calculates B01, B01, R01, R01, R01 as 98.27" do
+    catalogue = {
+      "R01" => { name: "Red Widget", price: 32.95 },
+      "G01" => { name: "Green Widget", price: 24.95 },
+      "B01" => { name: "Blue Widget", price: 7.95 }
+    }
+  
+    basket = Basket.new(catalogue, DeliveryRules.new, [RedWidgetOffer.new])
+    basket.add("B01")
+    basket.add("B01")
+    basket.add("R01")
+    basket.add("R01")
+    basket.add("R01")
+  
+    expect(basket.total).to eq(98.27)
+  end
 end
